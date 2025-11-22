@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>PrayMate - Jadwal Sholat Hari Ini</title>
+  <link rel="stylesheet" href="css/style.css?v=1.0.0">
+  <link rel="manifest" href="manifest.webmanifest">
+  <script>
+    // Apply theme IMMEDIATELY before render (no blink)
+    (function() {
+      const theme = localStorage.getItem('praymate_theme');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('theme-dark');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="btn-back-home" title="Kembali ke Beranda">🏠</a>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle Dark/Light Mode">
+      <span id="theme-icon">🌙</span>
+    </button>
+    <h1>PrayMate</h1>
+    <p>Jadwal Sholat Hari Ini</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2 id="location-name">Lokasi: -</h2>
+      <p id="date-today">Tanggal: -</p>
+      <p style="font-size: 12px; color: #666; margin-top: 8px;">
+        💡 Tip: Ubah metode perhitungan di <a href="settings.html" style="color: #13837c;">Pengaturan</a>
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Waktu Sholat</h2>
+      <table class="prayer-table" id="prayer-table">
+        <thead>
+          <tr>
+            <th>Sholat</th>
+            <th>Waktu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Subuh</td>
+            <td id="time-fajr">-</td>
+          </tr>
+          <tr>
+            <td>Dzuhur</td>
+            <td id="time-dhuhr">-</td>
+          </tr>
+          <tr>
+            <td>Ashar</td>
+            <td id="time-asr">-</td>
+          </tr>
+          <tr>
+            <td>Maghrib</td>
+            <td id="time-maghrib">-</td>
+          </tr>
+          <tr>
+            <td>Isya</td>
+            <td id="time-isha">-</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Log Sholat Hari Ini -->
+    <section class="card prayer-log-card">
+      <h3>📝 Log Sholat Hari Ini</h3>
+      <div class="prayer-checkboxes" id="prayer-checkboxes">
+        <div class="prayer-checkbox-item" data-prayer="fajr">
+          <input type="checkbox" id="log-fajr">
+          <label for="log-fajr">Subuh</label>
+        </div>
+        <div class="prayer-checkbox-item" data-prayer="dhuhr">
+          <input type="checkbox" id="log-dhuhr">
+          <label for="log-dhuhr">Dzuhur</label>
+        </div>
+        <div class="prayer-checkbox-item" data-prayer="asr">
+          <input type="checkbox" id="log-asr">
+          <label for="log-asr">Ashar</label>
+        </div>
+        <div class="prayer-checkbox-item" data-prayer="maghrib">
+          <input type="checkbox" id="log-maghrib">
+          <label for="log-maghrib">Maghrib</label>
+        </div>
+        <div class="prayer-checkbox-item" data-prayer="isha">
+          <input type="checkbox" id="log-isha">
+          <label for="log-isha">Isya</label>
+        </div>
+      </div>
+      <button class="btn-reset-log" onclick="resetTodayLog()">🗑️ Reset Log Hari Ini</button>
+    </section>
+
+    <!-- Statistik 7 Hari -->
+    <section class="card stats-card">
+      <h3>📊 Statistik 7 Hari Terakhir</h3>
+      
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value" id="stat-percentage">0%</div>
+          <div class="stat-label">Persentase Sholat</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="stat-streak">0</div>
+          <div class="stat-label">Streak Hari</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="stat-total">0</div>
+          <div class="stat-label">Total Sholat</div>
+        </div>
+      </div>
+      
+      <div class="week-chart" id="week-chart">
+        <!-- Will be filled by JS -->
+      </div>
+    </section>
+
+    <section class="card">
+      <button id="btn-refresh">⟳ Muat Ulang Jadwal</button>
+    </section>
+  </main>
+
+  <!-- PENTING: urutannya prayerApi dulu baru app.js -->
+  <script src="js/theme.js?v=1.0.0"></script>
+  <script src="js/prayerApi.js?v=1.0.0"></script>
+  <script src="js/app.js?v=1.0.0"></script>
+  <script src="js/islamic-features.js?v=1.0.0"></script>
+  <script>
+(function() {
+    const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
+    if (isDev) {
+        console.log("🔧 DEV MODE → Service Worker disabled + cache bypass");
+        
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.getRegistrations()
+                .then(regs => regs.forEach(reg => reg.unregister()));
+        }
+
+        if ("caches" in window) {
+            caches.keys().then(keys =>
+                keys.forEach(k => caches.delete(k))
+            );
+        }
+    } else {
+        console.log("🚀 PRODUCTION MODE → Service Worker enabled");
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("./service-worker.js")
+                .then(() => console.log("✅ SW registered"))
+                .catch(err => console.log("❌ SW error:", err));
+        }
+    }
+})();
+  </script>
+</body>
+</html>

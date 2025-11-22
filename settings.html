@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>PrayMate - Pengaturan</title>
+  <link rel="stylesheet" href="css/style.css?v=1.0.0">
+  <link rel="manifest" href="manifest.webmanifest">
+  <script>
+    // Apply theme IMMEDIATELY before render (no blink)
+    (function() {
+      const theme = localStorage.getItem('praymate_theme');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('theme-dark');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="btn-back-home" title="Kembali ke Beranda">🏠</a>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle Dark/Light Mode">
+      <span id="theme-icon">🌙</span>
+    </button>
+    <h1>PrayMate</h1>
+    <p>Pengaturan Aplikasi</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Pengaturan Jadwal Sholat</h2>
+      
+      <div id="success-msg" class="success-message">
+        Pengaturan berhasil disimpan!
+      </div>
+
+      <form id="settings-form">
+        <div class="form-group">
+          <label for="calculation-method">Metode Perhitungan:</label>
+          <select id="calculation-method" name="method">
+            <option value="1">University of Islamic Sciences, Karachi</option>
+            <option value="2">Islamic Society of North America (ISNA)</option>
+            <option value="3">Muslim World League (MWL)</option>
+            <option value="4">Umm al-Qura, Makkah</option>
+            <option value="5" selected>Egyptian General Authority of Survey</option>
+            <option value="7">Institute of Geophysics, University of Tehran</option>
+            <option value="8">Gulf Region</option>
+            <option value="9">Kuwait</option>
+            <option value="10">Qatar</option>
+            <option value="11">Majlis Ugama Islam Singapura</option>
+            <option value="12">Union Organization Islamic de France</option>
+            <option value="13">Diyanet İşleri Başkanlığı, Turkey</option>
+            <option value="14">Spiritual Administration of Muslims of Russia</option>
+            <option value="15">Moonsighting Committee Worldwide</option>
+            <option value="16">Dubai (unofficial)</option>
+            <option value="20">Kementerian Agama Indonesia</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="madhab">Madhab (untuk waktu Ashar):</label>
+          <select id="madhab" name="madhab">
+            <option value="0" selected>Syafi'i, Maliki, Hanbali</option>
+            <option value="1">Hanafi</option>
+          </select>
+        </div>
+
+        <button type="submit" id="btn-save-settings" class="btn-primary">
+          💾 Simpan Pengaturan
+        </button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h3>Notifikasi & Suara</h3>
+      
+      <!-- Tombol aktifkan notifikasi -->
+      <button id="enable-notifications" class="btn-primary" style="width: 100%; margin-bottom: 20px;">
+        🔔 Aktifkan Notifikasi
+      </button>
+      
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+        💡 Aktifkan notifikasi untuk mendapat pengingat otomatis saat waktu sholat tiba, bahkan ketika aplikasi tidak dibuka.
+      </p>
+
+      <!-- Toggle suara adzan -->
+      <div class="toggle-group">
+        <label for="play-adhan">🔊 Putar nada adzan pendek saat masuk waktu sholat</label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="play-adhan" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <p style="font-size: 13px; color: var(--text-secondary); margin-top: 12px;">
+        💡 Nada adzan akan diputar otomatis ketika countdown sholat berikutnya mencapai 00:00:00
+      </p>
+    </section>
+
+    <section class="card">
+      <h3>Informasi</h3>
+      <p>Metode perhitungan menentukan cara menghitung waktu sholat berdasarkan sudut matahari.</p>
+      <p>Untuk Indonesia, disarankan menggunakan <strong>Kementerian Agama Indonesia</strong> atau <strong>Egyptian General Authority</strong>.</p>
+    </section>
+
+  </main>
+
+  <script src="js/theme.js?v=1.0.0"></script>
+  <script src="js/app.js?v=1.0.0"></script>
+  <script src="js/islamic-features.js?v=1.0.0"></script>
+  <script>
+(function() {
+    const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
+    if (isDev) {
+        console.log("🔧 DEV MODE → Service Worker disabled + cache bypass");
+        
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.getRegistrations()
+                .then(regs => regs.forEach(reg => reg.unregister()));
+        }
+
+        if ("caches" in window) {
+            caches.keys().then(keys =>
+                keys.forEach(k => caches.delete(k))
+            );
+        }
+    } else {
+        console.log("🚀 PRODUCTION MODE → Service Worker enabled");
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("./service-worker.js")
+                .then(() => console.log("✅ SW registered"))
+                .catch(err => console.log("❌ SW error:", err));
+        }
+    }
+})();
+  </script>
+</body>
+</html>

@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>PrayMate - Pengingat Sholat & Al-Qur'an</title>
+  <title>PrayMate - Al-Qur'an Digital</title>
   <link rel="stylesheet" href="css/style.css?v=1.0.0">
   <link rel="manifest" href="manifest.webmanifest">
   <script>
@@ -21,69 +21,61 @@
 </head>
 <body>
   <header>
+    <a href="index.html" class="btn-back-home" title="Kembali ke Beranda">🏠</a>
     <button class="theme-toggle" id="theme-toggle" title="Toggle Dark/Light Mode">
       <span id="theme-icon">🌙</span>
     </button>
     <h1>PrayMate</h1>
-    <p>Teman ibadah harianmu 🤲</p>
+    <p>Al-Qur'an Digital</p>
   </header>
 
-  <main>
-    <nav class="menu-grid">
-      <a href="jadwal.html" class="menu-card">
-        <span style="font-size: 32px;">📅</span>
-        <span>Jadwal Sholat</span>
-      </a>
-      <a href="quran.html" class="menu-card">
-        <span style="font-size: 32px;">📖</span>
-        <span>Al-Qur'an Digital</span>
-      </a>
-      <a href="doa.html" class="menu-card">
-        <span style="font-size: 32px;">🤲</span>
-        <span>Doa Harian</span>
-      </a>
-      <a href="hadits.html" class="menu-card">
-        <span style="font-size: 32px;">📚</span>
-        <span>Hadits Shahih</span>
-      </a>
-      <a href="asmaul-husna.html" class="menu-card">
-        <span style="font-size: 32px;">✨</span>
-        <span>Asmaul Husna</span>
-      </a>
-      <a href="dzikir.html" class="menu-card">
-        <span style="font-size: 32px;">📿</span>
-        <span>Dzikir Counter</span>
-      </a>
-      <a href="kiblat.html" class="menu-card">
-        <span style="font-size: 32px;">🧭</span>
-        <span>Kiblat Compass</span>
-      </a>
-      <a href="zakat.html" class="menu-card">
-        <span style="font-size: 32px;">💰</span>
-        <span>Zakat Calculator</span>
-      </a>
-      <a href="kalender.html" class="menu-card">
-        <span style="font-size: 32px;">📆</span>
-        <span>Kalender Hijriah</span>
-      </a>
-      <a href="panduan-sholat.html" class="menu-card">
-        <span style="font-size: 32px;">🕌</span>
-        <span>Panduan Sholat</span>
-      </a>
-      <a href="settings.html" class="menu-card">
-        <span style="font-size: 32px;">⚙️</span>
-        <span>Pengaturan</span>
-      </a>
-    </nav>
+  <main class="container">
+    <!-- Bismillah heading di halaman Qur'an -->
+    <div class="bismillah-heading">
+      <p class="bismillah-text">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p class="bismillah-translation">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang</p>
+    </div>
+
+    <!-- Ayat Favorit -->
+    <section class="card favorites-card" id="favorites-card" style="display:none;">
+      <h3>⭐ Ayat Favorit</h3>
+      <ul class="favorites-list" id="favorites-list">
+        <!-- Will be filled by JS -->
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Daftar Surah</h2>
+      <p>Pilih salah satu surah untuk ditampilkan ayat-ayatnya.</p>
+      <input
+        type="text"
+        id="search-surah"
+        placeholder="Cari surah (mis: fatihah) atau ayat spesifik (mis: baqarah:255)"
+        class="input-text"
+      >
+      <p style="font-size: 12px; color: #666; margin-top: 8px;">
+        💡 <strong>Tips:</strong> Ketik <code>nama_surah:nomor_ayat</code> untuk langsung ke ayat tertentu.<br>
+        Contoh: <code>fatihah:3</code>, <code>baqarah:255</code>, <code>yasin:9</code>
+      </p>
+      <ul id="surah-list" class="surah-list">
+        <!-- daftar surah akan diisi lewat JS -->
+      </ul>
+    </section>
+
+    <section class="card" id="surah-detail" style="display:none;">
+      <h2 id="surah-title">Surah</h2>
+      <p id="surah-meta"></p>
+      <ol id="ayah-list" class="ayah-list">
+        <!-- ayat akan diisi lewat JS -->
+      </ol>
+    </section>
+
   </main>
 
-  <footer>
-    © PrayMate 2025 — Bantu ibadahmu setiap hari 🤲
-  </footer>
-
+  <!-- Quran API & logic -->
   <script src="js/theme.js?v=1.0.0"></script>
+  <script src="js/quranApi.js?v=1.0.0"></script>
   <script src="js/app.js?v=1.0.0"></script>
-  <script src="js/islamic-features.js?v=1.0.0"></script>
   <script>
 (function() {
     const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";

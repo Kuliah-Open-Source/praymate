@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Hadits Shahih - PrayMate</title>
+  <link rel="stylesheet" href="css/style.css?v=1.0.0">
+  <script>
+    (function() {
+      const theme = localStorage.getItem('praymate_theme');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('theme-dark');
+      }
+    })();
+  </script>
+</head>
+<body class="hadits-page">
+  <header>
+    <a href="index.html" class="btn-back-home" title="Kembali ke Beranda">🏠</a>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle Dark/Light Mode">
+      <span id="theme-icon">🌙</span>
+    </button>
+    <h1>PrayMate</h1>
+    <p>Hadits Shahih</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>📚 Daftar Kategori Hadits</h2>
+      <p>Pilih kategori untuk melihat hadits-hadits shahih di dalamnya.</p>
+      <input type="text" id="search-hadits" placeholder="Cari kategori..." class="input-text">
+      <div class="hadits-list" id="hadits-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    © PrayMate 2025 — Bantu ibadahmu setiap hari 🤲
+  </footer>
+
+  <script src="js/theme.js?v=1.0.0"></script>
+  <script src="js/haditsData.js?v=1.0.0"></script>
+  <script src="js/app.js?v=1.0.0"></script>
+  <script>
+(function() {
+    const isDev = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+
+    if (isDev) {
+        console.log("🔧 DEV MODE → Service Worker disabled + cache bypass");
+        
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.getRegistrations()
+                .then(regs => regs.forEach(reg => reg.unregister()));
+        }
+
+        if ("caches" in window) {
+            caches.keys().then(keys =>
+                keys.forEach(k => caches.delete(k))
+            );
+        }
+    } else {
+        console.log("🚀 PRODUCTION MODE → Service Worker enabled");
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("./service-worker.js")
+                .then(() => console.log("✅ SW registered"))
+                .catch(err => console.log("❌ SW error:", err));
+        }
+    }
+})();
+  </script>
+</body>
+</html>
