@@ -69,14 +69,15 @@ PrayMate/
 ├── manifest.webmanifest
 ├── service-worker.js
 ├── css/
-│ └── style.css
+│   └── style.css
 ├── js/
-│ ├── app.js
-│ ├── prayerApi.js
-│ ├── quranApi.js
-│ ├── theme.js
-│ └── doaData.js
+│   ├── app.js
+│   ├── prayerApi.js
+│   ├── quranApi.js
+│   ├── theme.js
+│   └── doaData.js
 └── README.md
+
 
 yaml
 Copy code
