@@ -16,10 +16,13 @@
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -28,6 +31,8 @@ body {
   -webkit-overflow-scrolling: touch;
   width: 100%;
   max-width: 100vw;
+  margin: 0;
+  padding: 0;
 }
 
 /* GPU Acceleration untuk elemen yang di-animate */
@@ -64,6 +69,7 @@ body {
   position: relative;
   min-height: 100vh;
   transition: background 0.4s ease, color 0.4s ease;
+  box-sizing: border-box;
 }
 
 body::before {
@@ -102,7 +108,7 @@ body::before {
 header {
   position: relative;
   text-align: center;
-  padding: 32px 20px;
+  padding: 2rem 1.25rem;
   background: linear-gradient(135deg, 
     rgba(13, 148, 136, 0.95) 0%, 
     rgba(15, 118, 110, 0.95) 50%,
@@ -111,6 +117,14 @@ header {
   animation: gradientFlow 8s ease infinite;
   backdrop-filter: blur(20px);
   will-change: background-position;
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  header {
+    padding: 2.5rem 1.5rem;
+  }
 }
 
 @keyframes gradientFlow {
@@ -131,18 +145,50 @@ header::after {
 }
 
 header::before {
-  width: 400px;
-  height: 400px;
-  top: -200px;
-  right: -100px;
+  width: 200px;
+  height: 200px;
+  top: -100px;
+  right: -50px;
 }
 
 header::after {
-  width: 300px;
-  height: 300px;
-  bottom: -150px;
-  left: -80px;
+  width: 150px;
+  height: 150px;
+  bottom: -75px;
+  left: -40px;
   animation-delay: -10s;
+}
+
+@media (min-width: 768px) {
+  header::before {
+    width: 300px;
+    height: 300px;
+    top: -150px;
+    right: -75px;
+  }
+  
+  header::after {
+    width: 225px;
+    height: 225px;
+    bottom: -112px;
+    left: -60px;
+  }
+}
+
+@media (min-width: 992px) {
+  header::before {
+    width: 400px;
+    height: 400px;
+    top: -200px;
+    right: -100px;
+  }
+  
+  header::after {
+    width: 300px;
+    height: 300px;
+    bottom: -150px;
+    left: -80px;
+  }
 }
 
 @keyframes float {
@@ -261,25 +307,34 @@ header p {
 /* ===== MAIN WRAPPER ===== */
 main {
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   position: relative;
   z-index: 1;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1200px) {
+  main {
+    max-width: 1200px;
+  }
 }
 
 /* ===== CONTAINER ===== */
 .container {
   padding: 1.5rem 1rem;
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   position: relative;
   z-index: 1;
   width: 100%;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
   .container {
     padding: 2rem 1.5rem;
+    max-width: 900px;
   }
 }
 
@@ -301,6 +356,8 @@ main {
   box-shadow: var(--shadow-sm);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
@@ -334,9 +391,16 @@ main {
   grid-template-columns: 1fr;
   gap: 1rem;
   padding: 1.5rem 1rem;
-  max-width: 500px;
+  max-width: 100%;
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 480px) {
+  .menu-grid {
+    max-width: 500px;
+  }
 }
 
 /* Tablet: 2 kolom */
@@ -389,6 +453,9 @@ main {
   min-height: 140px;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .menu-card::before {
@@ -496,14 +563,24 @@ main {
 /* ===== PRAYER TABLE ===== */
 .prayer-table {
   width: 100%;
+  max-width: 100%;
   border-collapse: separate;
   border-spacing: 0 8px;
+  box-sizing: border-box;
 }
 
 .prayer-table th,
 .prayer-table td {
-  padding: 16px 12px;
+  padding: 0.75rem 0.5rem;
   text-align: left;
+  box-sizing: border-box;
+}
+
+@media (min-width: 480px) {
+  .prayer-table th,
+  .prayer-table td {
+    padding: 1rem 0.75rem;
+  }
 }
 
 .prayer-table th {
@@ -893,6 +970,8 @@ footer {
   z-index: 1;
   margin-top: 2.5rem;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 footer::before {
@@ -996,10 +1075,13 @@ footer::before {
 /* ===== PRAYER LOG & HABIT TRACKER ===== */
 .prayer-log-card {
   background: linear-gradient(135deg, rgba(13, 148, 136, 0.1) 0%, rgba(15, 118, 110, 0.1) 100%);
-  border-radius: 16px;
-  padding: 20px;
-  margin-top: 20px;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin-top: 1.25rem;
   border: 1px solid var(--border-color);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .prayer-log-card h3 {
@@ -1010,21 +1092,32 @@ footer::before {
 
 .prayer-checkboxes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
-  margin-bottom: 16px;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 480px) {
+  .prayer-checkboxes {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
 }
 
 .prayer-checkbox-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px;
+  gap: 0.625rem;
+  padding: 0.75rem;
   background: var(--bg-card);
-  border-radius: 10px;
+  border-radius: 0.625rem;
   border: 1px solid var(--border-color);
   cursor: pointer;
   transition: all 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .prayer-checkbox-item:hover {
@@ -1071,24 +1164,38 @@ footer::before {
 .stats-card {
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   color: white;
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 20px;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 16px;
-  margin-top: 16px;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 480px) {
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
 }
 
 .stat-item {
   text-align: center;
-  padding: 16px;
+  padding: 1rem;
   background: rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .stat-value {
@@ -1494,8 +1601,8 @@ code {
   
   .prayer-table th,
   .prayer-table td {
-    padding: 0.75rem 0.5rem;
-    font-size: 0.9rem;
+    padding: 0.625rem 0.5rem;
+    font-size: 0.875rem;
   }
   
   .ayah-arabic {
@@ -1512,14 +1619,6 @@ code {
     bottom: 1rem;
   }
   
-  .prayer-checkboxes {
-    grid-template-columns: 1fr;
-  }
-  
-  .stats-grid {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
 }
 
 /* ===== RESPONSIVE TABLET & DESKTOP ===== */
@@ -1531,6 +1630,11 @@ code {
   
   .prayer-checkboxes {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
   }
 }
 
