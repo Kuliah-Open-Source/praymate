@@ -5,6 +5,28 @@ trs pilih praymate edit di README.md
 <img width="1429" height="266" alt="image" src="https://github.com/user-attachments/assets/d04fbf03-2d32-42d6-84ce-9da6cb3244f9" />
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 kamu kasih space di area kosong terbawha trs 
 lngsung commit chhange kyk digambar ini ya
 
