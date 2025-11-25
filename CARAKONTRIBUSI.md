@@ -8,3 +8,4 @@ lngsung commit chhange kyk digambar ini ya
 <img width="1321" height="758" alt="image" src="https://github.com/user-attachments/assets/3c569ec9-3c79-4e60-823d-ddd9c78d642c" />
 
 agar di repony berkontribusi
+atau kalau kamu mau nambahi fitur atau perbaiki kode rubah sesuaikan saja,
