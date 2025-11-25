@@ -71,3 +71,6 @@ bash
 Copy code
 python -m http.server 8000
 # Buka http://localhost:8000/
+
+UNTUK WEBSITE NYA BISA DI CEK DI BAWAH INI :
+https://alfep.github.io/praymate/index.html
